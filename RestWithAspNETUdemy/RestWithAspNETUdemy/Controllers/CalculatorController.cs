@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace RestWithAspNETUdemy.Controllers
 {
@@ -54,6 +55,30 @@ namespace RestWithAspNETUdemy.Controllers
                 }
 
                 var result = ConvertToDecimal(number) / ConvertToDecimal(divisionNumber);
+                return Ok(result.ToString());
+            }
+
+            return BadRequest("Invalid Input");
+        }
+
+        [HttpGet("mean/{firstNumber}/{secondNumber}")]
+        public IActionResult Mean(string firstNumber, string secondNumber)
+        {
+            if (IsNumeric(firstNumber) && IsNumeric(secondNumber))
+            {
+                var result = (ConvertToDecimal(firstNumber) + ConvertToDecimal(secondNumber)) / 2;
+                return Ok(result.ToString());
+            }
+
+            return BadRequest("Invalid Input");
+        }
+
+        [HttpGet("square-root/{number}")]
+        public IActionResult SquareRoot(string number)
+        {
+            if (IsNumeric(number))
+            {
+                var result = Math.Sqrt((double)ConvertToDecimal(number));
                 return Ok(result.ToString());
             }
 
