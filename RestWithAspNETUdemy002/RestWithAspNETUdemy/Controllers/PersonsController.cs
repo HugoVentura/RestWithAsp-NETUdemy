@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RestWithAspNETUdemy.Model;
-using RestWithAspNETUdemy.Services.Interfaces;
+using RestWithAspNETUdemy.Business.Interfaces;
 
 namespace RestWithAspNETUdemy.Controllers
 {
@@ -8,25 +8,25 @@ namespace RestWithAspNETUdemy.Controllers
     [ApiController]
     public class PersonsController : ControllerBase
     {
-        private IPersonService _personService;
+        private IPersonBusiness _personBusiness;
 
-        public PersonsController(IPersonService personService)
+        public PersonsController(IPersonBusiness personBusiness)
         {
-            _personService = personService;
+            _personBusiness = personBusiness;
         }
 
         // GET api/values
         [HttpGet]
         public ActionResult Get()
         {
-            return Ok(_personService.FindAll());
+            return Ok(_personBusiness.FindAll());
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
         public ActionResult Get(int id)
         {
-            var person = _personService.FindById(id);
+            var person = _personBusiness.FindById(id);
             if (person == null)
                 return NotFound();
 
@@ -40,7 +40,7 @@ namespace RestWithAspNETUdemy.Controllers
             if (person == null)
                 return BadRequest();
 
-            return new ObjectResult(_personService.Create(person));
+            return new ObjectResult(_personBusiness.Create(person));
         }
 
         // PUT api/values/5
@@ -50,14 +50,14 @@ namespace RestWithAspNETUdemy.Controllers
             if (person == null)
                 return BadRequest();
 
-            return new ObjectResult(_personService.Update(person));
+            return new ObjectResult(_personBusiness.Update(person));
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-            _personService.Delete(id);
+            _personBusiness.Delete(id);
             return NoContent();
         }
     }

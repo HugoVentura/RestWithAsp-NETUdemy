@@ -4,15 +4,15 @@ using System.Linq;
 using System.Threading;
 using RestWithAspNETUdemy.Model;
 using RestWithAspNETUdemy.Model.Context;
-using RestWithAspNETUdemy.Services.Interfaces;
+using RestWithAspNETUdemy.Business.Interfaces;
 
-namespace RestWithAspNETUdemy.Services.Implementattions
+namespace RestWithAspNETUdemy.Business.Implementattions
 {
-    public class PersonService : IPersonService
+    public class PersonBusiness : IPersonBusiness
     {
         private MySQLContext _context;
         
-        public PersonService(MySQLContext context)
+        public PersonBusiness(MySQLContext context)
         {
             _context = context;
         }

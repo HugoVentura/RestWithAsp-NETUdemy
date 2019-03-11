@@ -5,8 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RestWithAspNETUdemy.Model.Context;
-using RestWithAspNETUdemy.Services.Implementattions;
-using RestWithAspNETUdemy.Services.Interfaces;
+using RestWithAspNETUdemy.Business.Implementattions;
+using RestWithAspNETUdemy.Business.Interfaces;
 
 namespace RestWithAspNETUdemy
 {
@@ -25,7 +25,7 @@ namespace RestWithAspNETUdemy
             var connection = Configuration["MySqlConnection:MySqlConnectionString"];
             services.AddDbContext<MySQLContext>(options => options.UseMySql(connection));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddScoped<IPersonService, PersonService>();
+            services.AddScoped<IPersonBusiness, PersonBusiness>();
             services.AddApiVersioning();
         }
 
