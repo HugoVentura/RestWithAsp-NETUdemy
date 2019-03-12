@@ -44,13 +44,17 @@ namespace RestWithAspNETUdemy.Controllers
         }
 
         // PUT api/values/5
-        [HttpPut("{id}")]
+        [HttpPut]
         public ActionResult Put(int id, [FromBody] Person person)
         {
             if (person == null)
                 return BadRequest();
 
-            return new ObjectResult(_personBusiness.Update(person));
+            var updatedPerson = _personBusiness.Update(person);
+            if (updatedPerson == null)
+                return NoContent();
+
+            return new ObjectResult(updatedPerson);
         }
 
         // DELETE api/values/5
