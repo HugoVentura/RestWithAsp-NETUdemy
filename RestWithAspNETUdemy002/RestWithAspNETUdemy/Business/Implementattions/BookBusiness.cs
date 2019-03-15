@@ -5,17 +5,18 @@ using System.Collections.Generic;
 
 namespace RestWithAspNETUdemy.Business.Implementattions
 {
-    public class PersonBusiness : IPersonBusiness
+    public class BookBusiness : IBookBusiness
     {
-        private IRepositoryBase<Person> _repository;
-        
-        public PersonBusiness(IRepositoryBase<Person> repository)
+        private IRepositoryBase<Book> _repository;
+
+        public BookBusiness(IRepositoryBase<Book> repository)
         {
             _repository = repository;
         }
-        public Person Create(Person person)
+
+        public Book Create(Book book)
         {
-            return _repository.Create(person);
+            return _repository.Create(book);
         }
 
         public void Delete(long id)
@@ -23,19 +24,19 @@ namespace RestWithAspNETUdemy.Business.Implementattions
             _repository.Delete(id);
         }
 
-        public List<Person> FindAll()
+        public List<Book> FindAll()
         {
             return _repository.FindAll();
         }
 
-        public Person FindById(long id)
+        public Book FindById(long id)
         {
             return _repository.FindById(id);
         }
 
-        public Person Update(Person person)
+        public Book Update(Book book)
         {
-            return _repository.Update(person);
+            return _repository.Update(book);
         }
     }
 }

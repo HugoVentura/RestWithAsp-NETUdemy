@@ -4,13 +4,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using RestWithAspNETUdemy.Model.Context;
+using Microsoft.Extensions.Logging;
 using RestWithAspNETUdemy.Business.Implementattions;
 using RestWithAspNETUdemy.Business.Interfaces;
-using RestWithAspNETUdemy.Repository.Interfaces;
-using RestWithAspNETUdemy.Repository.Implementattions;
-using Microsoft.Extensions.Logging;
+using RestWithAspNETUdemy.Model.Context;
+using RestWithAspNETUdemy.Repository.Generic;
 using System;
+using System.Collections.Generic;
 
 namespace RestWithAspNETUdemy
 {
@@ -18,7 +18,7 @@ namespace RestWithAspNETUdemy
     {
         private readonly ILogger _logger;
         public IConfiguration _configuration { get; }
-        public IHostingEnvironment _environment { get; };
+        public IHostingEnvironment _environment { get; }
 
         public Startup(IConfiguration configuration, IHostingEnvironment environment, ILogger<Startup> logger)
         {
@@ -38,6 +38,14 @@ namespace RestWithAspNETUdemy
                 try
                 {
                     var evolveConnection = new MySql.Data.MySqlClient.MySqlConnection(connectionString);
+
+                    var evolve = new Evolve.Evolve("evolve.json", evolveConnection, msg => _logger.LogInformation(msg))
+                    {
+                        Locations = new List<string> { "db/migrations" },
+                        IsEraseDisabled = true,
+                    };
+
+                    evolve.Migrate();
                 }
                 catch (Exception ex)
                 {
@@ -49,7 +57,9 @@ namespace RestWithAspNETUdemy
             //services.AddApiVersioning();
 
             services.AddScoped<IPersonBusiness, PersonBusiness>();
-            services.AddScoped<IPersonRepository, PersonRepository>();
+            services.AddScoped<IBookBusiness, BookBusiness>();
+            
+            services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

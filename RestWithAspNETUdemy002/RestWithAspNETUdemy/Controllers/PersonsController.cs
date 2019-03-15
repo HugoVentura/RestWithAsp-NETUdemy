@@ -6,7 +6,7 @@ namespace RestWithAspNETUdemy.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PersonsController : ControllerBase
+    public class PersonsController : Controller
     {
         private IPersonBusiness _personBusiness;
 

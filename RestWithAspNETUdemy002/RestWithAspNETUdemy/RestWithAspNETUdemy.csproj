@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Evolve" Version="2.1.0" />
+    <PackageReference Include="Evolve" Version="1.8.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="3.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
@@ -16,14 +16,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="db\" />
+    <Folder Include="db\dataset\" />
+    <Folder Include="Repository\Implementattions\" />
+    <Folder Include="Repository\Interfaces\" />
   </ItemGroup>
 
   <Target Name="ChangeAliasesOfStrongNameAssemblies" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences">
     <ItemGroup>
-      <Reference>
+      <ReferencePath Condition="'%(FileName)' == 'MySqlConnector'">
         <Aliases>MySqlConnectorAlias</Aliases>
-      </Reference>
+      </ReferencePath>
     </ItemGroup>
   </Target>
 
