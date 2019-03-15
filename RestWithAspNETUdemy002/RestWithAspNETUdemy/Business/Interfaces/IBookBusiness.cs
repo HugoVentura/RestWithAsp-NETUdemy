@@ -1,4 +1,5 @@
-﻿using RestWithAspNETUdemy.Model;
+﻿using RestWithAspNETUdemy.Data.VO;
+using RestWithAspNETUdemy.Model;
 using RestWithAspNETUdemy.Repository.Generic;
 using System.Collections.Generic;
 
@@ -6,10 +7,11 @@ namespace RestWithAspNETUdemy.Business.Interfaces
 {
     public interface IBookBusiness
     {
-        Book Create(Book book);
-        Book FindById(long id);
-        List<Book> FindAll();
-        Book Update(Book book);
+        BookVO Create(BookVO book);
+        BookVO FindById(long id);
+        List<BookVO> FindAll();
+        BookVO Update(BookVO book);
         void Delete(long id);
+        bool Exists(long? id);
     }
 }

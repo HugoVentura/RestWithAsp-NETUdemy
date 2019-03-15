@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RestWithAspNETUdemy.Model;
 using RestWithAspNETUdemy.Business.Interfaces;
+using RestWithAspNETUdemy.Data.VO;
 
 namespace RestWithAspNETUdemy.Controllers
 {
@@ -35,7 +35,7 @@ namespace RestWithAspNETUdemy.Controllers
 
         // POST api/values
         [HttpPost]
-        public ActionResult Post([FromBody] Person person)
+        public ActionResult Post([FromBody] PersonVO person)
         {
             if (person == null)
                 return BadRequest();
@@ -45,7 +45,7 @@ namespace RestWithAspNETUdemy.Controllers
 
         // PUT api/values/5
         [HttpPut]
-        public ActionResult Put(int id, [FromBody] Person person)
+        public ActionResult Put(int id, [FromBody] PersonVO person)
         {
             if (person == null)
                 return BadRequest();

@@ -1,4 +1,6 @@
 ﻿using RestWithAspNETUdemy.Business.Interfaces;
+using RestWithAspNETUdemy.Data.Converters;
+using RestWithAspNETUdemy.Data.VO;
 using RestWithAspNETUdemy.Model;
 using RestWithAspNETUdemy.Repository.Generic;
 using System.Collections.Generic;
@@ -8,15 +10,19 @@ namespace RestWithAspNETUdemy.Business.Implementattions
     public class BookBusiness : IBookBusiness
     {
         private IRepositoryBase<Book> _repository;
+        private readonly BookConverter _converter;
 
         public BookBusiness(IRepositoryBase<Book> repository)
         {
             _repository = repository;
+            _converter = new BookConverter();
         }
 
-        public Book Create(Book book)
+        public BookVO Create(BookVO book)
         {
-            return _repository.Create(book);
+            var bookEntity = _converter.Parse(book);
+            bookEntity = _repository.Create(bookEntity);
+            return _converter.Parse(bookEntity);
         }
 
         public void Delete(long id)
@@ -24,19 +30,26 @@ namespace RestWithAspNETUdemy.Business.Implementattions
             _repository.Delete(id);
         }
 
-        public List<Book> FindAll()
+        public bool Exists(long? id)
         {
-            return _repository.FindAll();
+            return _repository.Exists(id);
         }
 
-        public Book FindById(long id)
+        public List<BookVO> FindAll()
         {
-            return _repository.FindById(id);
+            return _converter.ParseList(_repository.FindAll());
         }
 
-        public Book Update(Book book)
+        public BookVO FindById(long id)
         {
-            return _repository.Update(book);
+            return _converter.Parse(_repository.FindById(id));
+        }
+
+        public BookVO Update(BookVO book)
+        {
+            var bookEntity = _converter.Parse(book);
+            bookEntity = _repository.Update(bookEntity);
+            return _converter.Parse(bookEntity);
         }
     }
 }
